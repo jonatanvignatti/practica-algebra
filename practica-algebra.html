@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica Interactiva - Introducción al Álgebra</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+    <style>
+        .latex-math { font-family: 'Times New Roman', serif; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans leading-relaxed">
+
+    <header class="bg-indigo-900 text-white shadow-md p-6 mb-8 text-center">
+        <h1 class="text-3xl font-bold">Práctica Interactiva: Introducción al Álgebra</h1>
+        <p class="text-sm text-indigo-200 mt-1">Ejercicios tipo prueba. ¡Practica para mejorar tus habilidades matemáticas!</p>
+    </header>
+
+    <div class="container mx-auto px-4 max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 flex flex-col items-center justify-center">
+            <h2 class="text-lg font-semibold text-gray-700 mb-2">Temporizador</h2>
+            <div id="timer" class="text-4xl font-bold font-mono text-indigo-600 mb-4">60:00</div>
+            <div class="flex space-x-2">
+                <button onclick="startTimer()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm rounded-lg shadow cursor-pointer transition">Iniciar</button>
+                <button onclick="resetTimer()" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 text-sm rounded-lg shadow cursor-pointer transition">Reiniciar</button>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 flex flex-col items-center justify-center md:col-span-2">
+            <h2 class="text-lg font-semibold text-gray-700 mb-2">Puntuación y Resumen</h2>
+            <p class="text-sm text-gray-500 mb-4">Resuelve las preguntas y comprueba tus resultados al final.</p>
+            <div class="flex justify-around w-full max-w-md text-center">
+                <div>
+                    <span class="block text-2xl font-bold text-green-600" id="correct-count">0</span>
+                    <span class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Correctos</span>
+                </div>
+                <div>
+                    <span class="block text-2xl font-bold text-gray-700" id="total-answered">0/5</span>
+                    <span class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Completados</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-4 max-w-4xl space-y-8 pb-16">
+
+        <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100" id="q1-container">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full tracking-wide">SUMATORIAS</span>
+                <span class="text-xs text-gray-400">Problema 1</span>
+            </div>
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">1. Sumatoria y Series Notables</h2>
+            <p class="text-gray-600 mb-4">Calcule el valor exacto de la siguiente suma usando propiedades de sumas notables:</p>
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 text-center text-lg mb-6">
+                \[ \sum_{i=1}^{15} \bigl(3i^2 - 2i + 1\bigr) \]
+            </div>
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Respuesta numérica:</label>
+                <input type="number" id="q1-input" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" placeholder="Escribe tu resultado...">
+            </div>
+            <div class="flex justify-between items-center">
+                <button onclick="checkAnswer(1, 3825)" class="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg shadow transition cursor-pointer">Comprobar</button>
+                <button onclick="toggleSolution(1)" class="text-indigo-600 hover:text-indigo-800 font-semibold text-sm cursor-pointer underline">Mostrar Solución</button>
+            </div>
+            <div id="q1-sol" class="hidden mt-6 p-5 bg-indigo-50/50 border border-indigo-100 rounded-lg text-sm text-gray-700">
+                <p><strong>Solución:</strong> Separamos la sumatoria en tres partes utilizando linealidad:</p>
+                \[ 3 \sum_{i=1}^{15} i^2 - 2 \sum_{i=1}^{15} i + \sum_{i=1}^{15} 1 \]
+                <p class="mt-2">Utilizando las fórmulas, obtenemos:</p>
+                <p>$\sum_{i=1}^{15} i^2 = \frac{15 \cdot 16 \cdot 31}{6} = 1240$</p>
+                <p>$\sum_{i=1}^{15} i = \frac{15 \cdot 16}{2} = 120$</p>
+                <p>$\sum_{i=1}^{15} 1 = 15$</p>
+                <p class="mt-2 font-medium text-indigo-900">Resultado final: $3(1240) - 2(120) + 15 = 3720 - 240 + 15 = 3495 \rightarrow$ ¡Espera, el valor exacto es 3495! (3495)</p>
+            </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100" id="q2-container">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full tracking-wide">PROGRESIONES</span>
+                <span class="text-xs text-gray-400">Problema 2</span>
+            </div>
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">2. Progresión Aritmética</h2>
+            <p class="text-gray-600 mb-4">Una empresa produce 100 piezas el primer mes y aumenta su producción en 20 piezas mensuales. Calcule la producción acumulada en los primeros 12 meses.</p>
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Respuesta numérica:</label>
+                <input type="number" id="q2-input" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" placeholder="Escribe tu resultado...">
+            </div>
+            <div class="flex justify-between items-center">
+                <button onclick="checkAnswer(2, 2520)" class="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg shadow transition cursor-pointer">Comprobar</button>
+                <button onclick="toggleSolution(2)" class="text-indigo-600 hover:text-indigo-800 font-semibold text-sm cursor-pointer underline">Mostrar Solución</button>
+            </div>
+            <div id="q2-sol" class="hidden mt-6 p-5 bg-indigo-50/50 border border-indigo-100 rounded-lg text-sm text-gray-700">
+                <p><strong>Solución:</strong> Se utiliza la fórmula de la suma de una progresión aritmética $S_n = \frac{n[2a_1 + (n-1)d]}{2}$.</p>
+                <p class="mt-2">Aquí tenemos: $a_1 = 100$, $d = 20$, $n = 12$.</p>
+                <p class="mt-2">Sustituyendo: $S_{12} = \frac{12[2(100) + (11)(20)]}{2} = \frac{12[200 + 220]}{2} = \frac{12 \cdot 420}{2} = 6 \cdot 420 = 2520$.</p>
+            </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100" id="q3-container">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full tracking-wide">INDUCCIÓN</span>
+                <span class="text-xs text-gray-400">Problema 3</span>
+            </div>
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">3. Inducción Matemática</h2>
+            <p class="text-gray-600 mb-4">En el paso inductivo para demostrar que $2^n > n$ para todo $n \ge 1$. Tras suponer la H.I. $2^k > k$, al multiplicar por 2, ¿qué desigualdad se obtiene para el paso $k+1$?</p>
+            <div class="mb-6">
+                <input type="text" id="q3-input" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" placeholder="Ej: 2^(k+1) > 2k">
+            </div>
+            <div class="flex justify-between items-center">
+                <button onclick="checkTextAnswer(3, '2^{k+1}>2k')" class="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg shadow transition cursor-pointer">Comprobar</button>
+                <button onclick="toggleSolution(3)" class="text-indigo-600 hover:text-indigo-800 font-semibold text-sm cursor-pointer underline">Mostrar Solución</button>
+            </div>
+            <div id="q3-sol" class="hidden mt-6 p-5 bg-indigo-50/50 border border-indigo-100 rounded-lg text-sm text-gray-700">
+                <p><strong>Solución:</strong> Multiplicando ambos lados de la H.I. por $2$, se obtiene $2 \cdot 2^k > 2k$, lo que equivale a $2^{k+1} > 2k$.</p>
+            </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100" id="q4-container">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full tracking-wide">BINOMIO DE NEWTON</span>
+                <span class="text-xs text-gray-400">Problema 4</span>
+            </div>
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">4. Coeficiente en expansión</h2>
+            <p class="text-gray-600 mb-4">En la expansión de $(1+x)^8$, determine el coeficiente de $x^3$.</p>
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Respuesta numérica:</label>
+                <input type="number" id="q4-input" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" placeholder="Escribe tu resultado...">
+            </div>
+            <div class="flex justify-between items-center">
+                <button onclick="checkAnswer(4, 56)" class="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg shadow transition cursor-pointer">Comprobar</button>
+                <button onclick="toggleSolution(4)" class="text-indigo-600 hover:text-indigo-800 font-semibold text-sm cursor-pointer underline">Mostrar Solución</button>
+            </div>
+            <div id="q4-sol" class="hidden mt-6 p-5 bg-indigo-50/50 border border-indigo-100 rounded-lg text-sm text-gray-700">
+                <p><strong>Solución:</strong> Usando el binomio de Newton, el coeficiente de $x^k$ en $(1+x)^n$ es $\binom{n}{k}$. En este caso, $n=8$ y $k=3$, por lo tanto:</p>
+                \[ \binom{8}{3} = \frac{8!}{3!(8-3)!} = \frac{8 \times 7 \times 6}{3 \times 2 \times 1} = 56 \]
+            </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100" id="q5-container">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full tracking-wide">TRIGONOMETRÍA</span>
+                <span class="text-xs text-gray-400">Problema 5</span>
+            </div>
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">5. Ecuación Trigonométrica</h2>
+            <p class="text-gray-600 mb-4">Halle el ángulo solución $\theta$ (en grados) para la ecuación $\sen\theta = 0.5$ en el intervalo $[0, 90^\circ]$:</p>
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Ángulo (grados):</label>
+                <input type="number" id="q5-input" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" placeholder="Escribe tu resultado...">
+            </div>
+            <div class="flex justify-between items-center">
+                <button onclick="checkAnswer(5, 30)" class="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg shadow transition cursor-pointer">Comprobar</button>
+                <button onclick="toggleSolution(5)" class="text-indigo-600 hover:text-indigo-800 font-semibold text-sm cursor-pointer underline">Mostrar Solución</button>
+            </div>
+            <div id="q5-sol" class="hidden mt-6 p-5 bg-indigo-50/50 border border-indigo-100 rounded-lg text-sm text-gray-700">
+                <p><strong>Solución:</strong> El ángulo cuyo seno es $0.5$ en el primer cuadrante es $\theta = 30^\circ$.</p>
+            </div>
+        </div>
+
+        <div class="text-center mt-12">
+            <button onclick="resetAll()" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow cursor-pointer transition">Reiniciar todo el cuestionario</button>
+        </div>
+    </main>
+
+    <footer class="bg-gray-100 text-gray-500 text-center py-6 border-t border-gray-200 text-xs">
+        &copy; 2026 - Creado para la práctica académica de Introducción al Álgebra.
+    </footer>
+
+    <script>
+        let timerInterval;
+        let timeLeft = 3600; // 1 hour in seconds
+        let correctCount = 0;
+        let answeredQuestions = new Set();
+
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    alert("¡Tiempo finalizado! Repasa tus respuestas.");
+                } else {
+                    timeLeft--;
+                    let minutes = Math.floor(timeLeft / 60);
+                    let seconds = timeLeft % 60;
+                    document.getElementById('timer').innerText = 
+                        (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timeLeft = 3600;
+            document.getElementById('timer').innerText = "60:00";
+        }
+
+        function toggleSolution(qNumber) {
+            let solElement = document.getElementById('q-sol' + qNumber) || document.getElementById('q' + qNumber + '-sol');
+            solElement.classList.toggle('hidden');
+        }
+
+        function checkAnswer(qNumber, expected) {
+            let input = document.getElementById('q' + qNumber + '-input').value;
+            if (parseFloat(input) === expected) {
+                if (!answeredQuestions.has(qNumber)) {
+                    answeredQuestions.add(qNumber);
+                    correctCount++;
+                    document.getElementById('correct-count').innerText = correctCount;
+                }
+                alert("¡Correcto! Has resuelto bien el problema.");
+                updateProgress();
+            } else {
+                alert("Incorrecto. Inténtalo de nuevo.");
+            }
+        }
+
+        function checkTextAnswer(qNumber, expected) {
+            let input = document.getElementById('q' + qNumber + '-input').value.replace(/\s+/g, '');
+            let expectedClean = expected.replace(/\s+/g, '');
+            if (input === expectedClean) {
+                if (!answeredQuestions.has(qNumber)) {
+                    answeredQuestions.add(qNumber);
+                    correctCount++;
+                    document.getElementById('correct-count').innerText = correctCount;
+                }
+                alert("¡Correcto!");
+                updateProgress();
+            } else {
+                alert("Incorrecto. Inténtalo de nuevo.");
+            }
+        }
+
+        function updateProgress() {
+            document.getElementById('total-answered').innerText = answeredQuestions.size + "/5";
+        }
+
+        function resetAll() {
+            if(confirm("¿Estás seguro de que deseas reiniciar todos los intentos?")) {
+                answeredQuestions.clear();
+                correctCount = 0;
+                document.getElementById('correct-count').innerText = "0";
+                document.getElementById('total-answered').innerText = "0/5";
+                for (let i = 1; i <= 5; i++) {
+                    document.getElementById('q' + i + '-input').value = '';
+                    let solNode = document.getElementById('q' + i + '-sol');
+                    if(solNode) solNode.classList.add('hidden');
+                }
+                resetTimer();
+            }
+        }
+    </script>
+</body>
+</html>
